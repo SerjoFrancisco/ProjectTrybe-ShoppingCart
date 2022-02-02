@@ -5,7 +5,7 @@ function createProductImageElement(imageSource) {
   return img;
 }
 function cartItemClickListener(event) {
-  // coloque seu código aqui
+ event.target.remove();
 }
 function createCartItemElement({ id: sku, title: name, price: salePrice }) {
   const li = document.createElement('li');
@@ -22,7 +22,6 @@ async function getSkuFromProductItem(e) {
   try {
     const product = await fetchItem(id);
     cart.appendChild(createProductImageElement(product.thumbnail));
-    cart.appendChild(createCartItemElement(product));
   } catch (error) {
     throw new Error('ah não');
   }
