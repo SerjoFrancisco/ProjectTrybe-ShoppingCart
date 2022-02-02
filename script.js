@@ -43,7 +43,7 @@ async function test() {
   const obj = await fetchProducts('computador');
   const section = document.querySelector('.items');
   try {
-  obj.forEach((element) => {
+  obj.results.forEach((element) => {
     section.appendChild(createProductItemElement(element));
   });
 } catch (error) {
