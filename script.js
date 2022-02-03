@@ -7,7 +7,7 @@ function createProductImageElement(imageSource) {
 function cartItemClickListener(event) {
  event.target.remove();
 }
-function createCartItemElement({ id: sku, title: name, price: salePrice, thumbnail }) {
+function createCartItemElement({ id: sku, title: name, price: salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
