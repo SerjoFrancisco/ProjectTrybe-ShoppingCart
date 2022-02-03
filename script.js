@@ -1,4 +1,5 @@
 const price = document.querySelector('.total-price');
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -96,8 +97,10 @@ function eraseAll() {
   price.innerText = 0;
   localStorage.setItem('price', price.innerText);
 }
+
+window.onload = () => { 
 document.querySelector('.empty-cart').addEventListener('click', eraseAll);
 getCards();
 getSavedCartItems();
 listenAll();
-window.onload = () => { };
+};
