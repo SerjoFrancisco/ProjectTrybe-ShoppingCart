@@ -90,6 +90,12 @@ function listenAll() {
     element.addEventListener('click', cartItemClickListener);
   });
 }
+function eraseAll() {
+  document.querySelector('ol').innerText = '';
+  price.innerText = 0;
+  localStorage.setItem('price', price.innerText);
+}
+document.querySelector('.empty-cart').addEventListener('click', eraseAll);
 test();
 getSavedCartItems();
 listenAll();
