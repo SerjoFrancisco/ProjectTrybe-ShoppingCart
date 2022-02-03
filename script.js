@@ -21,7 +21,6 @@ async function getSkuFromProductItem(e) {
   const cart = document.querySelector('.cart__items');
   try {
     const product = await fetchItem(id);
-    
     cart.appendChild(createCartItemElement(product));
   } catch (error) {
     throw new Error('ah não');

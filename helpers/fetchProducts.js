@@ -8,7 +8,6 @@ const fetchProducts = async (query) => {
   throw new Error('You must provide an url');
 }
 };
-console.log(fetchProducts());
 
 if (typeof module !== 'undefined') {
   module.exports = {
