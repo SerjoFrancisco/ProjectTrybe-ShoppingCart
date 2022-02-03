@@ -1,11 +1,26 @@
+const price = document.querySelector('.total-price');
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
   img.src = imageSource;
   return img;
 }
-function cartItemClickListener(event) {
+function subPrices(element) {
+  let total = parseFloat(price.innerText.slice(2));
+  total -= element.price;
+  return total;
+}
+ async function cartItemClickListener(event) {
  event.target.remove();
+ const id = event.target.innerText.split(' ')[1];
+ const shoppingList = document.querySelector('ol').innerHTML;
+ saveCartItems(shoppingList);
+try {
+  const product = await fetchItem(id);
+  price.innerText = `R$${subPrices(product)}`;
+} catch (error) {
+  throw new Error('ah não');
+}
 }
 function createCartItemElement({ id: sku, title: name, price: salePrice }) {
   const li = document.createElement('li');
@@ -13,6 +28,11 @@ function createCartItemElement({ id: sku, title: name, price: salePrice }) {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
+}
+function sumPrices(element) {
+  let total = parseFloat(price.innerText.slice(2));
+  total += element.price;
+  return total;
 }
 async function getSkuFromProductItem(e) {
   const button = e.target;
@@ -22,8 +42,8 @@ async function getSkuFromProductItem(e) {
   try {
     const product = await fetchItem(id);
     cart.appendChild(createCartItemElement(product));
-    const shoppingList = document.querySelector('.cart__items').innerHTML;
-  saveCartItems(shoppingList);
+    price.innerText = `R$${sumPrices(product)}`;
+    saveCartItems(cart.innerHTML);
   } catch (error) {
     throw new Error('ah não');
   }
@@ -60,6 +80,14 @@ async function test() {
   throw new Error('ah não');
 }
 }
+function listenAll() {
+  const shoppingList = document.querySelector('.cart__items');
+  const itens = Array.from(shoppingList.getElementsByClassName('cart__item'));
+  itens.forEach((element) => {
+    element.addEventListener('click', cartItemClickListener);
+  });
+}
 test();
 getSavedCartItems();
+listenAll();
 window.onload = () => { };
