@@ -72,13 +72,14 @@ function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
   return section;
 }
 
-async function test() {
+async function getCards() {
   const obj = await fetchProducts('computador');
   const section = document.querySelector('.items');
   try {
   obj.results.forEach((element) => {
     section.appendChild(createProductItemElement(element));
   });
+  document.querySelector('.loading').remove();
 } catch (error) {
   throw new Error('ah não');
 }
@@ -96,7 +97,7 @@ function eraseAll() {
   localStorage.setItem('price', price.innerText);
 }
 document.querySelector('.empty-cart').addEventListener('click', eraseAll);
-test();
+getCards();
 getSavedCartItems();
 listenAll();
 window.onload = () => { };
