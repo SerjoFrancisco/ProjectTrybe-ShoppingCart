@@ -22,6 +22,8 @@ async function getSkuFromProductItem(e) {
   try {
     const product = await fetchItem(id);
     cart.appendChild(createCartItemElement(product));
+    const shoppingList = document.querySelector('.cart__items').innerHTML;
+  saveCartItems(shoppingList);
   } catch (error) {
     throw new Error('ah não');
   }
@@ -59,4 +61,5 @@ async function test() {
 }
 }
 test();
+getSavedCartItems();
 window.onload = () => { };
