@@ -6,7 +6,7 @@ function createProductImageElement(imageSource) {
   return img;
 }
 function subPrices(element) {
-  let total = parseFloat(price.innerText.slice(2));
+  let total = parseFloat(price.innerText);
   total -= element.price;
   return total;
 }
@@ -17,7 +17,8 @@ function subPrices(element) {
  saveCartItems(shoppingList);
 try {
   const product = await fetchItem(id);
-  price.innerText = `R$${subPrices(product)}`;
+  price.innerText = subPrices(product);
+  localStorage.setItem('price', price.innerText);
 } catch (error) {
   throw new Error('ah não');
 }
@@ -30,7 +31,7 @@ function createCartItemElement({ id: sku, title: name, price: salePrice }) {
   return li;
 }
 function sumPrices(element) {
-  let total = parseFloat(price.innerText.slice(2));
+  let total = parseFloat(price.innerText);
   total += element.price;
   return total;
 }
@@ -42,8 +43,10 @@ async function getSkuFromProductItem(e) {
   try {
     const product = await fetchItem(id);
     cart.appendChild(createCartItemElement(product));
-    price.innerText = `R$${sumPrices(product)}`;
+    price.innerText = sumPrices(product);
     saveCartItems(cart.innerHTML);
+    localStorage.setItem('price', price.innerText);
+    document.querySelector('.total-price').innerText = localStorage.getItem('price');
   } catch (error) {
     throw new Error('ah não');
   }
