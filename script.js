@@ -1,5 +1,6 @@
 const price = document.querySelector('.total-price');
 
+//  Função escrita pela trybe
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -24,6 +25,7 @@ try {
   throw new Error('ah não');
 }
 }
+// Função escrita pela Trybe 
 function createCartItemElement({ id: sku, title: name, price: salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -34,9 +36,9 @@ function createCartItemElement({ id: sku, title: name, price: salePrice }) {
 function sumPrices(element) {
   let total = parseFloat(price.innerText);
   total += element.price;
-  return total;
+  return total.toFixed(2);
 }
-async function getSkuFromProductItem(e) {
+async function putItemsOnCart(e) {
   const button = e.target;
   const item = button.parentElement;
   const id = item.querySelector('span.item__sku').innerText;
@@ -52,17 +54,18 @@ async function getSkuFromProductItem(e) {
     throw new Error('ah não');
   }
 }
-
+// Função escrita pela Trybe
 function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
   e.className = className;
   e.innerText = innerText;
   if (element === 'button') {
-    e.addEventListener('click', getSkuFromProductItem);
+    e.addEventListener('click', putItemsOnCart);
   }
   return e;
 }
 
+// Função escrita pela TRybe
 function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
   const section = document.createElement('section');
   section.className = 'item';
